@@ -1,13 +1,7 @@
 import numpy as np
 
-# chr(10)-->'\n' newlinefeed;
-# chr(9)-->'   'tab;
-# chr(32)-->' ' space;
-# chr(13)-->'\r' carriage return, but it does not work stable since its used to debug the '~' problem. YOU KNOW THAT }0~
-# it must be added at last. YOU KNOW WHY
+# CYPHER_CODE must not be modified. Doing so will break the program algorithm
 CYPHER_CODE = chr(10) + chr(9) + chr(32) + '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~' + chr(13)
-
-
 
 def in_cyphercode(letter):
     ''' Checks if letter is in CYPHER_CODE'''
@@ -75,6 +69,7 @@ def cypher(byte_array, split_lim):
         # classic = np.concatenate((split_array[3], split_array[2], split_array[1], split_array[0], trailing_byte))
         return np.concatenate((np.concatenate(tuple(split_array[i] for i in range(split_lim-1, -1, -1))), trailing_byte))
 
+    
 def encrypt_byte_list(byte_array):
     """Recieves bytes as ndarray
     Returns encrypted bytes as ndarray"""
@@ -86,6 +81,7 @@ def encrypt_byte_list(byte_array):
     byte_array = cypher(byte_array, 16)
     return np.flip(byte_array)
 
+
 def decrypt_byte_list(byte_array):
     """Recieves bytes as ndarray
        Returns decrypted bytes as ndarray"""
@@ -96,6 +92,7 @@ def decrypt_byte_list(byte_array):
     byte_array = cypher(byte_array, 12)
     byte_array = cypher(byte_array, 8)
     return cypher(byte_array, 4)
+
 
 def encrypt_text(data_to_encrypt):
     ''' Encrypts the given string (only ASCII). Returns encrypted string along with a code_word which is used for decryption'''
